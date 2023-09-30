@@ -1,0 +1,28 @@
+from matplotlib.image import imread
+import matplotlib.pyplot as plt
+import numpy as np
+
+image = imread('paisaje1.jpg')
+
+r,g,b = image[:,:,0], image[:,:,1], image[:,:,2]
+# Divide en 3 canales(rojo,verde y azul)
+
+gamma = 1.04
+
+r_const, g_const, b_const = 0.2126, 0.7152, 0.0722
+# Define las constantes para calcular los valores de los pixeles en la imagen en escala de grises
+# 0.2126, 0.7152, 0.0722 - 0.299, 0.587, 0.114 - 0.2989, 0.5780, 0.1140
+
+grayscale_image = r_const * r ** gamma + g_const * g ** gamma + b_const * b ** gamma
+# Calcula la imagen a escala de grises (constantes rgb, matrices rgc y gamma)
+
+fig = plt.figure(1)
+img1,img2 = fig.add_subplot(121), fig.add_subplot(122)
+#Visualizamos la imagen original(RGB) y la imagen en escala de grises separadas en una misma ventana
+
+img1.imshow(image)
+img2.imshow(grayscale_image, cmap=plt.cm.get_cmap('gray')) #cmap='gray'
+# cmap=plt.cm.get_cmap('gray') indica que la paleta de colores para visualizar se mostrara en tonos de grises en lugar de colores completos.
+
+fig.show()
+plt.show()
